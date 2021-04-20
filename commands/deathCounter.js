@@ -11,7 +11,6 @@ module.exports = {
         //strore mentioned client data
         let mention = message.mentions.users.first();
         if (!mention) return message.channel.send('You need to mention a user.');
-        console.log(mention.id);
 
         // create embed
         const embed = new MessageEmbed()
@@ -38,40 +37,14 @@ module.exports = {
                 await mongo().then(async (mongoose) => {
                     try {
                         if (reaction.emoji.name == '➕') {
-                            const result = await deathCountSchema.findOneAndUpdate(
-                                {
-                                    _id: mention.id
-                                },
-                                {
-                                    $inc: {
-                                        deathCount: 1
-                                    }
-                                },
-                                {
-                                    upsert: true
-                                }
-                            ).exec()
+                            const result = await deathCountSchema.findOneAndUpdate({ _id: mention.id }, { $inc: { deathCount: 1 } }, { upsert: true }).exec()
                             var h = result.toObject();
                             p = h.deathCount;
                         } else {
-                            const result = await deathCountSchema.findOneAndUpdate(
-                                {
-                                    _id: mention.id
-                                },
-                                {
-                                    $inc: {
-                                        deathCount: -1
-                                    }
-                                },
-                                {
-                                    upsert: true
-                                }
-                            ).exec()
+                            const result = await deathCountSchema.findOneAndUpdate({ _id: mention.id }, { $inc: { deathCount: -1 } }, { upsert: true }).exec()
                             var h = result.toObject();
                             p = h.deathCount;
                         }
-
-
                     } finally { mongoose.connection.close() }
                     sentMessage.edit(embed.setDescription(p));
                     reaction.users.remove(user);

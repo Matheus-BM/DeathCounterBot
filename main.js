@@ -17,10 +17,9 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
-
+// Cosole log Check if bot and db are online
 client.once('ready', async () => {
     console.log('Nice and Redy');
-
 
     await mongo().then(mongoose => {
         try {
@@ -32,14 +31,13 @@ client.once('ready', async () => {
 
 })
 
-
+//Mesage handler
 client.on('message', async message => {
+    //check prefix on mensage
     if (!message.content.startsWith(prefix) || message.author.bot) return;
-
-
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
-
+    //comands check
     if (command === 'death') {
         client.commands.get('deathCounter').execute(message, args);
     }
