@@ -38,10 +38,19 @@ client.on('message', async message => {
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
     //comands check
-    if (command === 'death') {
-        client.commands.get('deathCounter').execute(message, args);
-    }
+    switch (command) {
+        case 'death':
+            client.commands.get('deathCounter').execute(message, args);
+            break;
 
+        case 'call':
+
+            break;
+
+        default:
+            console.log(`Sorry, no ${expr} command found .`);
+
+    }
 });
 
 
