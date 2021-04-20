@@ -34,7 +34,7 @@ module.exports = {
             //On collect + or - reation increment deathCount
             collector.on('collect', async (reaction, user) => {
 
-                //connect to monot db
+                //connect to monogo db
                 await mongo().then(async (mongoose) => {
                     try {
                         if (reaction.emoji.name == '➕') {
