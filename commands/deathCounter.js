@@ -1,7 +1,6 @@
 const deathCountSchema = require('../schemas/death-count-schema.js')
 const mongo = require('../mongo.js');
 const { MessageEmbed } = require('discord.js');
-const { connect } = require('mongoose');
 
 module.exports = {
     name: 'deathCounter',

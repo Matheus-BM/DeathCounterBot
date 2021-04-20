@@ -8,6 +8,9 @@ const mongo = require('./mongo.js');
 const { prefix, token } = require('./config.json')
 const fs = require('fs');
 
+
+
+
 // Creates a colletion for all discord commands
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
@@ -15,11 +18,13 @@ for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
 
     client.commands.set(command.name, command);
+
 }
 
 // Cosole log Check if bot and db are online
 client.once('ready', async () => {
     console.log('Nice and Redy');
+    client.user.setActivity('discord.js', { type: 'WATCHING' })
 
     await mongo().then(mongoose => {
         try {
@@ -44,7 +49,7 @@ client.on('message', async message => {
             break;
 
         case 'call':
-
+            client.commands.get('call').execute(message, args);
             break;
 
         default:
