@@ -21,10 +21,11 @@ for (const file of commandFiles) {
 
 }
 
+
 // Cosole log Check if bot and db are online
 client.once('ready', async () => {
     console.log('Nice and Redy');
-    client.user.setActivity('discord.js', { type: 'WATCHING' })
+    client.user.setActivity('$help', { type: 'WATCHING' })
 
     await mongo().then(mongoose => {
         try {
@@ -54,6 +55,9 @@ client.on('message', async message => {
 
         case 'profile':
             client.commands.get('profile').execute(message, args);
+            break;
+        case 'help':
+            client.commands.get('help').execute(message, args);
             break;
 
         default:

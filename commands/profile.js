@@ -16,7 +16,7 @@ module.exports = {
             const result = await deathCountSchema.find({ userId: mention.id }).exec()
 
             const embed = new MessageEmbed()
-                .setTitle('Death Counter')
+                .setTitle(mention.username + ' Profile')
                 .setColor(0xff0000)
                 .setFooter(mention.username, mention.avatarURL())
             result.forEach((entry, index) => {
