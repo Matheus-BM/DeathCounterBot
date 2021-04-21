@@ -52,8 +52,12 @@ client.on('message', async message => {
             client.commands.get('call').execute(message, args);
             break;
 
+        case 'profile':
+            client.commands.get('profile').execute(message, args);
+            break;
+
         default:
-            console.log(`Sorry, no ${expr} command found .`);
+            console.log(`Sorry, no command found .`);
 
     }
 });

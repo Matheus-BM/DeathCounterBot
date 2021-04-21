@@ -14,7 +14,7 @@ module.exports = {
         // create embed
         try {
             var currentGame = mention.presence.activities[0].name;
-        } catch { var currentGame = mention.username; }
+        } catch { return message.channel.send('Targed player needs to be playing.'); }
 
         const embed = new MessageEmbed()
             .setTitle('Death Counter')
