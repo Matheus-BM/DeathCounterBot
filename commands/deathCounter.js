@@ -16,6 +16,7 @@ module.exports = {
             .setTitle('Death Counter')
             .setColor(0xff0000)
             .setDescription("Incremente")
+            .setFooter(mention.username, mention.avatarURL())
 
         //send embed and add reations
         message.channel.send(embed).then(function (sentMessage) {
@@ -44,7 +45,7 @@ module.exports = {
                         //Get deathCount Vallue from db
                         const result = await deathCountSchema.findOne({ _id: mention.id }).exec()
                         var h = result.toObject();
-                        sentMessage.edit(embed.setDescription(h.deathCount));
+                        sentMessage.edit(embed.setDescription("morreu " + h.deathCount + " vezes"));
                         // close mongo db connetion
                     } finally { mongoose.connection.close() }
                     //remove user reatction and stop collector
