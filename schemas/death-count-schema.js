@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const deathCountSchema = mongoose.Schema({
-    // The user ID
-    _id: {
+    // user id
+    userId: {
         type: String,
         require: true
     },
@@ -11,6 +11,11 @@ const deathCountSchema = mongoose.Schema({
 
     deathCount: {
         type: Number,
+        require: true
+    },
+    // game name
+    gameName: {
+        type: String,
         require: true
     }
 

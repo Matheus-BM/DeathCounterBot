@@ -12,11 +12,16 @@ module.exports = {
         if (!mention) return message.channel.send('You need to mention a user.');
 
         // create embed
+        try {
+            var currentGame = mention.presence.activities[0].name;
+        } catch { var currentGame = mention.username; }
+
         const embed = new MessageEmbed()
             .setTitle('Death Counter')
             .setColor(0xff0000)
             .setDescription("Incremente")
-            .setFooter(mention.username, mention.avatarURL())
+            .setFooter(currentGame, mention.avatarURL())
+
 
         //send embed and add reations
         message.channel.send(embed).then(function (sentMessage) {
@@ -38,12 +43,12 @@ module.exports = {
                     try {
                         //On collect + or - reation increment deathCount
                         if (reaction.emoji.name == '➕') {
-                            await deathCountSchema.findOneAndUpdate({ _id: mention.id }, { $inc: { deathCount: 1 } }, { upsert: true }).exec()
+                            await deathCountSchema.findOneAndUpdate({ userId: mention.id, gameName: currentGame }, { $inc: { deathCount: 1 } }, { upsert: true }).exec()
                         } else {
-                            await deathCountSchema.findOneAndUpdate({ _id: mention.id }, { $inc: { deathCount: -1 } }, { upsert: true }).exec()
+                            await deathCountSchema.findOneAndUpdate({ userId: mention.id, gameName: currentGame }, { $inc: { deathCount: -1 } }, { upsert: true }).exec()
                         }
                         //Get deathCount Vallue from db
-                        const result = await deathCountSchema.findOne({ _id: mention.id }).exec()
+                        const result = await deathCountSchema.findOne({ userId: mention.id, gameName: currentGame }).exec()
                         var h = result.toObject();
                         sentMessage.edit(embed.setDescription("morreu " + h.deathCount + " vezes"));
                         // close mongo db connetion
