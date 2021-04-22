@@ -1,17 +1,24 @@
 
 const { MessageEmbed } = require('discord.js');
+const fs = require('fs');
 
 
 module.exports = {
     name: 'help',
+    cmd: '$help',
     description: 'show all comands available',
-    execute(message, args) {
+    execute(message, args, client) {
         const embed = new MessageEmbed()
             .setTitle("Comand List")
             .setColor(0xff0000)
-            .addField("Death Counter - $death ", "\u200b")
-            .addField("Call - $call", "\u200b ")
-            .addField("Profile - $profile", "\u200b ")
+
+        const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+        for (const file of commandFiles) {
+            const command = require(`../commands/${file}`);
+
+            embed.addField(`${client.commands.get(command.name).name} - ${client.commands.get(command.name).cmd}`, client.commands.get(command.name).description);
+
+        }
 
         //send embed and add reations
         message.channel.send(embed);

@@ -4,6 +4,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'deathCounter',
+    cmd: '$death',
     description: 'calls the mentioned user death counter',
     execute(message, args) {
 

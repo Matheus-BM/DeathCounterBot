@@ -2,6 +2,7 @@
 
 module.exports = {
     name: 'call',
+    cmd: '$call',
     description: 'get the bot into the call',
     async execute(message, args) {
         //checks if user is on a voice channel

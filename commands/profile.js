@@ -4,6 +4,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'profile',
+    cmd: '$profile',
     description: 'calls the mentioned user death profile',
     execute(message, args) {
 

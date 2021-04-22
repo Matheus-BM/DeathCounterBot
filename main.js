@@ -22,6 +22,8 @@ for (const file of commandFiles) {
 }
 
 
+
+
 // Cosole log Check if bot and db are online
 client.once('ready', async () => {
     console.log('Nice and Redy');
@@ -57,7 +59,7 @@ client.on('message', async message => {
             client.commands.get('profile').execute(message, args);
             break;
         case 'help':
-            client.commands.get('help').execute(message, args);
+            client.commands.get('help').execute(message, args, client);
             break;
 
         default:
