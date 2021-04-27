@@ -13,6 +13,11 @@ const deathCountSchema = mongoose.Schema({
         type: Number,
         require: true
     },
+
+    rageCount: {
+        type: Number,
+        require: true
+    },
     // game name
     gameName: {
         type: String,
