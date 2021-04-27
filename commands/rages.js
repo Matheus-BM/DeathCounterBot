@@ -13,16 +13,15 @@ module.exports = {
         if (!mention) return message.channel.send('You need to mention a user.');
 
         // create embed
-        try {
-            var currentGame = mention.presence.activities[0].name;
-        } catch { return message.channel.send('Targed player needs to be playing.'); }
+
 
         const embed = new MessageEmbed()
             .setTitle('rage Counter')
             .setColor(0xff0000)
             .setDescription("Incremente")
-            .setFooter(currentGame, mention.avatarURL())
-
+        try {
+            embed.setFooter(currentGame, mention.avatarURL())
+        } catch { }
 
         //send embed and add reations
         message.channel.send(embed).then(function (sentMessage) {
