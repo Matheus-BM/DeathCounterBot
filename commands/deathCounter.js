@@ -15,7 +15,9 @@ module.exports = {
         // create embed
         try {
             var currentGame = mention.presence.activities[0].name;
-        } catch { return message.channel.send('Targed player needs to be playing.'); }
+        } catch {
+            return message.channel.send('Targed player needs to be playing.');
+        }
 
         const embed = new MessageEmbed()
             .setTitle('Death Counter')
@@ -44,9 +46,10 @@ module.exports = {
                     try {
                         //On collect + or - reation increment deathCount
                         if (reaction.emoji.name == '➕') {
-                            await deathCountSchema.findOneAndUpdate({ userId: mention.id, gameName: currentGame }, { $inc: { deathCount: 1 } }, { upsert: true }).exec()
+                            await deathCountSchema.findOneAndUpdate({ userId: mention.id, gameName: currentGame, username: mention.username }, { $inc: { deathCount: 1 } }, { upsert: true }).exec()
+
                         } else {
-                            await deathCountSchema.findOneAndUpdate({ userId: mention.id, gameName: currentGame }, { $inc: { deathCount: -1 } }, { upsert: true }).exec()
+                            await deathCountSchema.findOneAndUpdate({ userId: mention.id, gameName: currentGame, username: mention.username }, { $inc: { deathCount: -1 } }, { upsert: true }).exec()
                         }
                         //Get deathCount Vallue from db
                         const result = await deathCountSchema.findOne({ userId: mention.id, gameName: currentGame }).exec()

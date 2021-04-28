@@ -6,9 +6,11 @@ const deathCountSchema = mongoose.Schema({
         type: String,
         require: true
     },
-
+    username: {
+        type: String,
+        require: true
+    },
     //How many deaths
-
     deathCount: {
         type: Number,
         require: true
