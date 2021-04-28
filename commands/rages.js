@@ -20,7 +20,7 @@ module.exports = {
             .setColor(0xff0000)
             .setDescription("Incremente")
         try {
-            embed.setFooter(currentGame, mention.avatarURL())
+            embed.setFooter(mention.avatarURL())
         } catch { }
 
         //send embed and add reations
@@ -43,12 +43,12 @@ module.exports = {
                     try {
                         //On collect + or - reation increment deathCount
                         if (reaction.emoji.name == '➕') {
-                            await deathCountSchema.findOneAndUpdate({ userId: mention.id, gameName: currentGame }, { $inc: { rageCount: 1 } }, { upsert: true }).exec()
+                            await deathCountSchema.findOneAndUpdate({ userId: mention.id }, { $inc: { rageCount: 1 } }, { upsert: true }).exec()
                         } else {
-                            await deathCountSchema.findOneAndUpdate({ userId: mention.id, gameName: currentGame }, { $inc: { rageCount: -1 } }, { upsert: true }).exec()
+                            await deathCountSchema.findOneAndUpdate({ userId: mention.id }, { $inc: { rageCount: -1 } }, { upsert: true }).exec()
                         }
                         //Get deathCount Vallue from db
-                        const result = await deathCountSchema.findOne({ userId: mention.id, gameName: currentGame }).exec()
+                        const result = await deathCountSchema.findOne({ userId: mention.id }).exec()
                         var h = result.toObject();
                         sentMessage.edit(embed.setDescription(h.rageCount + " rages"));
                         // close mongo db connetion
