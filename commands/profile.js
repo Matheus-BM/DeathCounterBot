@@ -16,12 +16,17 @@ module.exports = {
         mongo().then(async (mongoose) => {
             const result = await deathCountSchema.find({ userId: mention.id }).exec()
 
+
             const embed = new MessageEmbed()
                 .setTitle(mention.username + ' Profile')
                 .setColor(0xff0000)
                 .setFooter(mention.username, mention.avatarURL())
             result.forEach((entry, index) => {
-                embed.addField(result[index].gameName, "\u200b" + result[index].deathCount + " mortes \u200b \u200b ");
+                if (!result[index].resetCount) { result[index].resetCount = 0 }
+                if (!result[index].regeCount) { result[index].rageCount = 0 }
+                embed.addField(result[index].gameName, "\u200b" + result[index].deathCount + " mortes, \u200b \u200b " + result[index].resetCount + " resets, \u200b \u200b  " + result[index].rageCount + " rages. \u200b \u200b \n ");
+
+
             })
 
 

@@ -64,6 +64,9 @@ client.on('message', async message => {
         case 'rage':
             client.commands.get('rages').execute(message, args, client);
             break;
+        case 'resets':
+            client.commands.get('resets').execute(message, args, client);
+            break;
 
         default:
             console.log(`Sorry, no command found .`);

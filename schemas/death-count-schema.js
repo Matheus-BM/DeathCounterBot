@@ -14,6 +14,9 @@ const deathCountSchema = mongoose.Schema({
     deathCount: {
         type: Number,
         require: true
+    }, resetCount: {
+        type: Number,
+        require: true
     },
 
     rageCount: {
